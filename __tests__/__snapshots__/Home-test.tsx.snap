@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home render 1`] = `
+<Layout>
+  <ForwardRef(SafeAreaView)
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <withTheme(undefined)
+      style={
+        Array [
+          Object {
+            "color": "#FFFFFF",
+          },
+          Object {
+            "fontSize": 24,
+          },
+        ]
+      }
+    />
+  </ForwardRef(SafeAreaView)>
+</Layout>
+`;
