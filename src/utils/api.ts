@@ -60,8 +60,6 @@ export default class Api {
   }
 
   post<T>(uri: string, data: object): Promise<AxiosResponse<T>> {
-    console.log(`POST:: ${uri} ${JSON.stringify(data)}`);
-
     return axios.post<T>(uri, data).catch(this.handleUnauthorized);
   }
 
