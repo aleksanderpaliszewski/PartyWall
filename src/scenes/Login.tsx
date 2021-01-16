@@ -6,11 +6,14 @@ import Layout from '../components/Layout';
 import LoginForm from '../components/LoginForm';
 import ApiContext from '../utils/apiContext';
 import UserContext from '../utils/userContext';
+import SnackBarContext from '../utils/snackbarContext';
+
 import {User} from '../api/interface';
 
 const Login: FC = () => {
   const api = useContext(ApiContext);
-  const {setUser} = useContext(UserContext);
+  const {setAuthData} = useContext(UserContext);
+  const {setMessage} = useContext(SnackBarContext);
 
   const [loading, setLoading] = useState(false);
 
@@ -19,8 +22,8 @@ const Login: FC = () => {
 
     return api
       .post<User>('auth/login', {email, password})
-      .then(({data}) => setUser(data))
-      .catch(console.error)
+      .then(({data}) => setAuthData(data))
+      .catch((error) => setMessage(error.message))
       .finally(() => setLoading(false));
   };
 

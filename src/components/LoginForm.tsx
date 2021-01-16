@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     marginTop: 3 * SPACING.Vertical,
     width: 100,
     alignSelf: 'center',
+    borderRadius: 30,
   },
 });
 

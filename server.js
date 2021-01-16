@@ -19,9 +19,12 @@ const expiresIn = '1h';
 const createToken = (payload) => jwt.sign(payload, key, {expiresIn});
 
 const verifyToken = (token) =>
-  jwt.verify(token, key, (err, decode) =>
-    decode !== undefined ? decode : err,
-  );
+  jwt.verify(token, key, (err, decode) => {
+    if (err) {
+      throw err;
+    }
+    return decode;
+  });
 
 const isAuthenticated = ({email, password}) =>
   userdb.users.some(
@@ -36,11 +39,11 @@ server.post('/auth/login', (req, res) => {
     res.status(status).json({status, message});
     return;
   }
-  const access_token = createToken({email, password});
-  res.status(200).json({access_token});
+  const jwtToken = createToken({email, password});
+  res.status(200).json({jwtToken});
 });
 
-server.use(/^(?!\/auth).*$/, (req, res, next) => {
+server.use((req, res, next) => {
   if (
     !req.headers.authorization ||
     req.headers.authorization.split(' ')[0] !== 'Bearer'
@@ -53,7 +56,9 @@ server.use(/^(?!\/auth).*$/, (req, res, next) => {
   try {
     verifyToken(req.headers.authorization.split(' ')[1]);
     next();
-  } catch ({status, message}) {
+  } catch (err) {
+    const status = 401;
+    const message = 'Error: access_token is not valid';
     res.status(status).json({status, message});
   }
 });

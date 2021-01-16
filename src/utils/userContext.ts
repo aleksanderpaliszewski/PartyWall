@@ -3,12 +3,14 @@ import {User} from '../api/interface';
 
 interface UserContext {
   user: User | null;
-  setUser: (user: User | null) => unknown;
+  setAuthData: (user: User) => unknown;
+  resetAuthData: () => unknown;
 }
 
 const UserContext = createContext<UserContext>({
   user: null,
-  setUser: () => null,
+  setAuthData: () => null,
+  resetAuthData: () => null,
 });
 
 export default UserContext;
