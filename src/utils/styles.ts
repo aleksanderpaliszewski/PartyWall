@@ -53,7 +53,20 @@ export default StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 2,
-
     elevation: 2,
+  },
+  inputContainer: {
+    width: '100%',
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 40,
+    paddingHorizontal: 2 * SPACING.Horizontal,
+    paddingVertical: 6 * SPACING.Vertical,
+    backgroundColor: COLORS.white,
+    opacity: 0.95,
+  },
+  button: {
+    marginTop: 2 * SPACING.Vertical,
+    alignSelf: 'center',
+    borderRadius: 30,
   },
 });

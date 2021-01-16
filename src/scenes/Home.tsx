@@ -4,10 +4,12 @@ import {Button} from 'react-native-paper';
 
 import Layout from '../components/Layout';
 import UserContext from '../utils/userContext';
+import {HomeStackScreenProps} from '../navigations/Home';
+import {Scenes} from '../api/enums';
 
 import styles from '../utils/styles';
 
-const Home: FC = () => {
+const Home: FC<HomeStackScreenProps<Scenes.Home>> = () => {
   const {resetAuthData} = useContext(UserContext);
 
   return (

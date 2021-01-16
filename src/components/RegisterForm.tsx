@@ -3,30 +3,31 @@ import {Formik, FormikValues} from 'formik';
 import {Button} from 'react-native-paper';
 
 import CustomTextInput from '../components/CustomTextInput';
-import {LogInSchema} from '../utils/schemas';
+import {RegisterSchema} from '../utils/schemas';
 
 import globalStyles from '../utils/styles';
 
-interface LoginForm {
+interface RegisterForm {
   loading: boolean;
-  handleSubmit: (values: FormikValues) => void;
+  register: (values: FormikValues) => void;
 }
 
-const LoginForm: FC<LoginForm> = ({handleSubmit, loading}) => (
+const RegisterForm: FC<RegisterForm> = ({register, loading}) => (
   <Formik
     initialValues={{
       email: '',
       password: '',
+      passwordConfirmation: '',
     }}
-    validationSchema={LogInSchema}
-    onSubmit={handleSubmit}>
+    validationSchema={RegisterSchema}
+    onSubmit={({email, password}) => register({email, password})}>
     {({handleChange, handleBlur, handleSubmit, values, errors, touched}) => (
       <>
         <CustomTextInput
           testID="email"
-          fieldName="email"
           placeholder="E-mail"
           label="E-mail"
+          fieldName="email"
           textContentType="emailAddress"
           autoCapitalize="none"
           value={values.email}
@@ -37,14 +38,28 @@ const LoginForm: FC<LoginForm> = ({handleSubmit, loading}) => (
         <CustomTextInput
           secureTextEntry
           testID="password"
-          fieldName="password"
           placeholder="Password"
           label="Password"
+          fieldName="password"
           textContentType="password"
           value={values.password}
           onChangeText={handleChange('password')}
           onBlur={handleBlur('password')}
           error={(touched.password && errors.password) || ''}
+        />
+        <CustomTextInput
+          secureTextEntry
+          testID="passwordConfirmation"
+          placeholder="Password confirmation"
+          label="Password confirmation"
+          fieldName="passwordConfirmation"
+          textContentType="none"
+          value={values.passwordConfirmation}
+          onChangeText={handleChange('passwordConfirmation')}
+          onBlur={handleBlur('passwordConfirmation')}
+          error={
+            (touched.passwordConfirmation && errors.passwordConfirmation) || ''
+          }
         />
         <Button
           style={globalStyles.button}
@@ -53,11 +68,11 @@ const LoginForm: FC<LoginForm> = ({handleSubmit, loading}) => (
           loading={loading}
           disabled={loading}
           onPress={handleSubmit}>
-          Log in
+          Register
         </Button>
       </>
     )}
   </Formik>
 );
 
-export default LoginForm;
+export default RegisterForm;

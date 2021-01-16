@@ -1,51 +1,49 @@
 import React, {FC, useState, useContext} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {FormikValues} from 'formik';
 import {Button} from 'react-native-paper';
 
-import {LoginStackScreenProps} from '../navigations/Login';
 import Layout from '../components/Layout';
-import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
 import ApiContext from '../utils/apiContext';
-import UserContext from '../utils/userContext';
 import SnackBarContext from '../utils/snackbarContext';
+import {LoginStackScreenProps} from '../navigations/Login';
 import {Scenes} from '../api/enums';
+import UserContext from '../utils/userContext';
 import {User} from '../api/interface';
 
 import globalStyles from '../utils/styles';
 
-const Login: FC<LoginStackScreenProps<Scenes.Login>> = ({navigation}) => {
+const Register: FC<LoginStackScreenProps<Scenes.Register>> = ({navigation}) => {
   const api = useContext(ApiContext);
   const {setAuthData} = useContext(UserContext);
   const {setMessage} = useContext(SnackBarContext);
 
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = ({email, password}: FormikValues) => {
+  const register = ({email, password}: FormikValues) => {
     setLoading(true);
 
     return api
-      .post<User>('auth/login', {email, password})
+      .post<User>('auth/register', {email, password})
       .then(({data}) => setAuthData(data))
-      .catch((error) => setMessage(error.message))
+      .catch(({message}) => setMessage(message))
       .finally(() => setLoading(false));
   };
 
   return (
     <Layout>
-      <ScrollView
-        contentContainerStyle={styles.container}
-        keyboardShouldPersistTaps="always">
+      <View style={styles.container}>
         <View style={globalStyles.inputContainer}>
-          <LoginForm handleSubmit={handleSubmit} loading={loading} />
+          <RegisterForm register={register} loading={loading} />
           <Button
             style={globalStyles.button}
             mode="text"
-            onPress={() => navigation.replace(Scenes.Register)}>
-            Register
+            onPress={() => navigation.replace(Scenes.Login)}>
+            Log in
           </Button>
         </View>
-      </ScrollView>
+      </View>
     </Layout>
   );
 };
@@ -58,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Register;

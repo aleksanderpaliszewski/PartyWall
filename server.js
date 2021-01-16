@@ -6,8 +6,6 @@ const jwt = require('jsonwebtoken');
 const server = jsonServer.create();
 const router = jsonServer.router('./db.json');
 
-const userdb = JSON.parse(fs.readFileSync('./users.json', 'UTF-8'));
-
 server.use(jsonServer.defaults());
 
 server.use(bodyParser.urlencoded({extended: true}));
@@ -26,10 +24,19 @@ const verifyToken = (token) =>
     return decode;
   });
 
-const isAuthenticated = ({email, password}) =>
-  userdb.users.some(
+const isAuthenticated = ({email, password}) => {
+  const userdb = JSON.parse(fs.readFileSync('./users.json', 'UTF-8'));
+
+  return userdb.users.some(
     (user) => user.email === email && user.password === password,
   );
+};
+
+const emailExists = ({email}) => {
+  const userdb = JSON.parse(fs.readFileSync('./users.json', 'UTF-8'));
+
+  return userdb.users.some((user) => user.email === email);
+};
 
 server.post('/auth/login', (req, res) => {
   const {email, password} = req.body;
@@ -43,7 +50,43 @@ server.post('/auth/login', (req, res) => {
   res.status(200).json({jwtToken});
 });
 
-server.use((req, res, next) => {
+server.post('/auth/register', (req, res) => {
+  const {email, password} = req.body;
+
+  if (emailExists({email})) {
+    const status = 401;
+    const message = 'Email already exist';
+    res.status(status).json({status, message});
+    return;
+  }
+
+  fs.readFile('./users.json', (err, data) => {
+    if (err) {
+      const status = 401;
+      const message = err;
+      res.status(status).json({status, message});
+      return;
+    }
+
+    let db = JSON.parse(data.toString());
+
+    const id = db.users[db.users.length - 1].id + 1;
+
+    db.users.push({id, email, password});
+
+    fs.writeFile('./users.json', JSON.stringify(db), (err) => {
+      if (err) {
+        const status = 401;
+        const message = err;
+        res.status(status).json({status, message});
+      }
+      const jwtToken = createToken({email, password});
+      res.status(200).json({jwtToken});
+    });
+  });
+});
+
+server.use(/^(?!\/auth).*$/, (req, res, next) => {
   if (
     !req.headers.authorization ||
     req.headers.authorization.split(' ')[0] !== 'Bearer'
