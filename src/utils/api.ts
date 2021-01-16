@@ -22,6 +22,12 @@ export default class Api {
       .get<T>(urljoin(uri, stringifyQuery(query)))
       .catch(this.handleUnauthorized);
   }
+
+  post<T>(uri: string, data: object): Promise<AxiosResponse<T>> {
+    console.log(`POST:: ${uri} ${JSON.stringify(data)}`);
+
+    return axios.post<T>(uri, data).catch(this.handleUnauthorized);
+  }
 }
 
 function stringifyQuery(object = {}) {
