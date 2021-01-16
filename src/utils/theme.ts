@@ -9,6 +9,9 @@ const theme: Theme = {
     ...DefaultTheme.colors,
     primary: COLORS.primary,
     accent: COLORS.secondary,
+    placeholder: COLORS.border,
+    text: COLORS.black,
+    background: COLORS.white,
   },
 };
 

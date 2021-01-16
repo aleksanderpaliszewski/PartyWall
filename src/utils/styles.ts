@@ -4,20 +4,29 @@ export const COLORS = {
   primary: '#301cbe',
   secondary: '#730040',
   background: '#F0F0F0',
+  border: '#dcdcdc',
   dark: '#322f3d',
   white: '#FFFFFF',
   black: '#000000',
+  error: '#AE1C23',
+};
+
+export const SPACING = {
+  Horizontal: 15,
+  Vertical: 10,
 };
 
 export default StyleSheet.create({
-  grow: {
-    flex: 1,
-    justifyContent: 'space-between',
-  },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginHorizontal: 2 * SPACING.Horizontal,
+    marginVertical: 2 * SPACING.Vertical,
+  },
+  grow: {
+    flex: 1,
+    justifyContent: 'space-between',
   },
   statusBar: {
     marginTop: StatusBar.currentHeight || 0,
@@ -26,7 +35,8 @@ export default StyleSheet.create({
     color: COLORS.white,
   },
   header: {
-    fontSize: 24,
+    fontSize: 30,
+    color: COLORS.white,
   },
   content: {
     fontSize: 16,
@@ -34,5 +44,16 @@ export default StyleSheet.create({
   linearGradient: {
     flex: 1,
     opacity: 0.8,
+  },
+  shadow: {
+    shadowColor: COLORS.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+
+    elevation: 2,
   },
 });
