@@ -14,7 +14,7 @@ import theme from './utils/theme';
 const App = () => {
   const [user, setUser] = useState<User | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
-  const {api, setAuthData, resetAuthData} = useAuth(setUser);
+  const {api, setAuthData, resetAuthData} = useAuth(setUser, setErrorMessage);
 
   const snackbarControls = useMemo(
     () => ({
