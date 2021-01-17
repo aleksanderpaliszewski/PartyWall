@@ -24,7 +24,7 @@ exports[`login should render correctly 1`] = `
   style={
     Object {
       "flex": 1,
-      "opacity": 0.8,
+      "opacity": 0.98,
     }
   }
 >
@@ -64,9 +64,9 @@ exports[`login should render correctly 1`] = `
               "backgroundColor": "#FFFFFF",
               "borderTopLeftRadius": 40,
               "borderTopRightRadius": 40,
-              "opacity": 0.95,
+              "paddingBottom": 30,
               "paddingHorizontal": 30,
-              "paddingVertical": 60,
+              "paddingTop": 60,
               "width": "100%",
             }
           }

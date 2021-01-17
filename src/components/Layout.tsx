@@ -20,7 +20,7 @@ const Layout: FC = ({children}) => {
       />
       <KeyboardAvoidingView
         style={[styles.grow, styles.statusBar]}
-        behavior={isIos ? 'padding' : 'height'}>
+        behavior={isIos ? 'padding' : undefined}>
         {children}
       </KeyboardAvoidingView>
     </LinearGradient>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   linearGradient: {
     flex: 1,
-    opacity: 0.8,
+    opacity: 0.98,
   },
 });
 

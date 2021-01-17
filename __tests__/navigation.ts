@@ -8,7 +8,7 @@ import {
 } from '../src/navigations/Home';
 import {Scenes} from '../src/api/enums';
 
-function getPropsMock(sn: LoginScreenName | HomeScreenName) {
+function getPropsMock(screenName: LoginScreenName | HomeScreenName) {
   return {
     navigation: {
       goBack: jest.fn(),
@@ -34,7 +34,7 @@ function getPropsMock(sn: LoginScreenName | HomeScreenName) {
     },
     route: {
       key: '1',
-      name: sn,
+      name: screenName,
       params: undefined,
     },
   };

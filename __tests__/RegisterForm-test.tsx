@@ -1,14 +1,36 @@
 import React from 'react';
-import {render, fireEvent, waitFor} from '@testing-library/react-native';
+import {
+  render,
+  fireEvent,
+  waitFor,
+  GetByAPI,
+} from '@testing-library/react-native';
 import RegisterForm from '../src/components/RegisterForm';
+import {ReactTestInstance} from 'react-test-renderer';
+import {FormikValues} from 'formik';
 
 describe('register form', () => {
-  it('should have email validation error', async () => {
-    const mockFn = jest.fn();
+  let getByTestId: (text: string | RegExp) => ReactTestInstance;
+  let getByText: (text: string | RegExp) => ReactTestInstance;
+  let mockHandleSubmit: (values: FormikValues) => void;
+  let mockNavigate: () => void;
 
-    const {getByTestId, getByText} = render(
-      <RegisterForm register={mockFn} loading={false} />,
-    );
+  beforeEach(() => {
+    mockHandleSubmit = jest.fn();
+    mockNavigate = jest.fn();
+
+    const wrapper = render(
+      <RegisterForm
+        handleSubmit={mockHandleSubmit}
+        navigateToLogin={mockNavigate}
+        loading={false}
+      />,
+    ) as GetByAPI;
+    getByTestId = wrapper.getByTestId;
+    getByText = wrapper.getByText;
+  });
+
+  it('should have email validation error', async () => {
     const email = getByTestId('email');
     const button = getByText('Register');
 
@@ -17,13 +39,7 @@ describe('register form', () => {
 
     expect(getByText('Invalid email')).toBeTruthy();
   });
-
   it('should have repeat password validation error', async () => {
-    const mockFn = jest.fn();
-
-    const {getByTestId, getByText} = render(
-      <RegisterForm register={mockFn} loading={false} />,
-    );
     const email = getByTestId('password');
     const button = getByText('Register');
 
@@ -34,11 +50,6 @@ describe('register form', () => {
   });
 
   it('should have password are not the same validation error', async () => {
-    const mockFn = jest.fn();
-
-    const {getByTestId, getByText} = render(
-      <RegisterForm register={mockFn} loading={false} />,
-    );
     const email = getByTestId('password');
     const passwordConfirmation = getByTestId('passwordConfirmation');
     const button = getByText('Register');
@@ -53,11 +64,6 @@ describe('register form', () => {
   });
 
   it('should allows the user to register', async () => {
-    const mockFn = jest.fn();
-
-    const {getByTestId, getByText} = render(
-      <RegisterForm register={mockFn} loading={false} />,
-    );
     const email = getByTestId('email');
     const password = getByTestId('password');
     const passwordConfirmation = getByTestId('passwordConfirmation');
@@ -70,7 +76,7 @@ describe('register form', () => {
     await waitFor(() => fireEvent.changeText(password, 'mockPassword'));
     await waitFor(() => fireEvent.press(button));
 
-    expect(mockFn).toBeCalledWith({
+    expect(mockHandleSubmit).toBeCalledWith({
       email: 'mock@email.com',
       password: 'mockPassword',
     });

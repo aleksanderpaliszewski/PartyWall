@@ -41,10 +41,6 @@ export default StyleSheet.create({
   content: {
     fontSize: 16,
   },
-  linearGradient: {
-    flex: 1,
-    opacity: 0.8,
-  },
   shadow: {
     shadowColor: COLORS.black,
     shadowOffset: {
@@ -60,9 +56,9 @@ export default StyleSheet.create({
     borderTopRightRadius: 40,
     borderTopLeftRadius: 40,
     paddingHorizontal: 2 * SPACING.Horizontal,
-    paddingVertical: 6 * SPACING.Vertical,
+    paddingTop: 6 * SPACING.Vertical,
+    paddingBottom: 3 * SPACING.Vertical,
     backgroundColor: COLORS.white,
-    opacity: 0.95,
   },
   button: {
     marginTop: 2 * SPACING.Vertical,
