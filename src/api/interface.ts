@@ -1,5 +1,3 @@
-import {ProductEnum} from './enums';
-
 export interface User {
   jwtToken: string;
 }
@@ -13,5 +11,15 @@ export interface Profile {
 export interface Product {
   id: number;
   name: string;
-  category: ProductEnum;
+  price: string;
+  quantity: number;
+}
+
+export interface Food extends Product {
+  description: string;
+  weight: string;
+}
+
+export interface Drink extends Product {
+  volume: string;
 }

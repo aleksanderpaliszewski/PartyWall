@@ -1,5 +1,44 @@
 {
   "hello": {
     "title": "Hello world!"
-  }
+  },
+  "products": [
+    {
+      "id": 1,
+      "name": "Pepsi",
+      "price": "20$",
+      "quantity": 2,
+      "volume": "330ml"
+    },
+    {
+      "id": 2,
+      "name": "Lays",
+      "price": "4$",
+      "quantity": 1,
+      "description": "Chips",
+      "weight": "500g"
+    },
+    {
+      "id": 3,
+      "name": "Coca cola",
+      "price": "22$",
+      "quantity": 2,
+      "volume": "330ml"
+    },
+    {
+      "id": 4,
+      "name": "Pepsi light",
+      "price": "21$",
+      "quantity": 4,
+      "volume": "2l"
+    },
+    {
+      "id": 5,
+      "name": "Milka",
+      "price": "2$",
+      "quantity": 1,
+      "description": "Chocolate",
+      "weight": "100g"
+    }
+  ]
 }

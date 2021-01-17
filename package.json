@@ -12,6 +12,7 @@
     "server-auth": "node server.js"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.9.0",
     "@react-navigation/stack": "^5.13.0",
@@ -20,6 +21,7 @@
     "enzyme": "^3.11.0",
     "formik": "^2.2.6",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20",
     "qs": "^6.9.6",
     "react": "16.13.1",
     "react-native": "0.63.4",
