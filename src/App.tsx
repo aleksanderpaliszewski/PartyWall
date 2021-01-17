@@ -1,26 +1,20 @@
 import 'react-native-gesture-handler';
 import React, {useState, useMemo} from 'react';
 import {View} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
 import {Provider, Snackbar} from 'react-native-paper';
+import NavigationContainer from './navigations/Container';
 
-import Home from './scenes/Home';
-import Login from './scenes/Login';
-import theme from './utils/theme';
-import UserContext from './utils/userContext';
-import Scenes from './navigations/Scenes';
-import {User} from './api/interface';
-import SnackBarContext from './utils/snackbarContext';
 import {useAuth} from './hooks/useAuth';
+import UserContext from './utils/userContext';
+import SnackBarContext from './utils/snackbarContext';
 import ApiContext from './utils/apiContext';
+import {User} from './api/interface';
+import theme from './utils/theme';
 
 const App = () => {
   const [user, setUser] = useState<User | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
   const {api, setAuthData, resetAuthData} = useAuth(setUser);
-
-  const Stack = createStackNavigator();
 
   const snackbarControls = useMemo(
     () => ({
@@ -36,30 +30,12 @@ const App = () => {
       <ApiContext.Provider value={api}>
         <UserContext.Provider value={{user, setAuthData, resetAuthData}}>
           <SnackBarContext.Provider value={snackbarControls}>
-            <NavigationContainer>
-              <Stack.Navigator
-                screenOptions={{
-                  headerShown: false,
-                }}>
-                {user ? (
-                  <Stack.Screen
-                    name={Scenes.Home}
-                    component={Home}
-                    options={{headerTransparent: true}}
-                  />
-                ) : (
-                  <Stack.Screen
-                    name={Scenes.Login}
-                    component={Login}
-                    options={{headerTransparent: true}}
-                  />
-                )}
-              </Stack.Navigator>
-            </NavigationContainer>
+            <NavigationContainer user={user} />
           </SnackBarContext.Provider>
           <View>
             <Snackbar
               visible={!!errorMessage}
+              duration={2000}
               onDismiss={() => setErrorMessage('')}>
               {errorMessage}
             </Snackbar>

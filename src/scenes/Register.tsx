@@ -1,15 +1,15 @@
 import React, {FC, useState, useContext} from 'react';
 import {FormikValues} from 'formik';
 
-import {LoginStackScreenProps} from '../navigations/Login';
-import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
 import ApiContext from '../utils/apiContext';
-import UserContext from '../utils/userContext';
 import SnackBarContext from '../utils/snackbarContext';
+import UserContext from '../utils/userContext';
+import {LoginStackScreenProps} from '../navigations/Login';
 import {Scenes} from '../api/enums';
 import {User} from '../api/interface';
 
-const Login: FC<LoginStackScreenProps<Scenes.Login>> = ({navigation}) => {
+const Register: FC<LoginStackScreenProps<Scenes.Register>> = ({navigation}) => {
   const api = useContext(ApiContext);
   const {setAuthData} = useContext(UserContext);
   const {setMessage} = useContext(SnackBarContext);
@@ -20,19 +20,19 @@ const Login: FC<LoginStackScreenProps<Scenes.Login>> = ({navigation}) => {
     setLoading(true);
 
     return api
-      .post<User>('auth/login', {email, password})
+      .post<User>('auth/register', {email, password})
       .then(({data}) => setAuthData(data))
-      .catch((error) => setMessage(error.message))
+      .catch(({message}) => setMessage(message))
       .finally(() => setLoading(false));
   };
 
   return (
-    <LoginForm
+    <RegisterForm
       loading={loading}
       handleSubmit={handleSubmit}
-      navigateToRegister={() => navigation.replace(Scenes.Register)}
+      navigateToLogin={() => navigation.replace(Scenes.Login)}
     />
   );
 };
 
-export default Login;
+export default Register;

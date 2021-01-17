@@ -41,10 +41,6 @@ export default StyleSheet.create({
   content: {
     fontSize: 16,
   },
-  linearGradient: {
-    flex: 1,
-    opacity: 0.8,
-  },
   shadow: {
     shadowColor: COLORS.black,
     shadowOffset: {
@@ -53,7 +49,25 @@ export default StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 2,
-
     elevation: 2,
+  },
+  inputContainer: {
+    width: '100%',
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 40,
+    paddingHorizontal: 2 * SPACING.Horizontal,
+    paddingTop: 6 * SPACING.Vertical,
+    paddingBottom: 3 * SPACING.Vertical,
+    backgroundColor: COLORS.white,
+  },
+  button: {
+    marginTop: 2 * SPACING.Vertical,
+    alignSelf: 'center',
+    borderRadius: 30,
+  },
+  formContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
 });

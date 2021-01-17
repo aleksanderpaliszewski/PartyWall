@@ -5,11 +5,11 @@ import {
   waitFor,
   GetByAPI,
 } from '@testing-library/react-native';
-import LoginForm from '../src/components/LoginForm';
+import RegisterForm from '../src/components/RegisterForm';
 import {ReactTestInstance} from 'react-test-renderer';
 import {FormikValues} from 'formik';
 
-describe('login form', () => {
+describe('register form', () => {
   let getByTestId: (text: string | RegExp) => ReactTestInstance;
   let getByText: (text: string | RegExp) => ReactTestInstance;
   let mockHandleSubmit: (values: FormikValues) => void;
@@ -20,9 +20,9 @@ describe('login form', () => {
     mockNavigate = jest.fn();
 
     const wrapper = render(
-      <LoginForm
+      <RegisterForm
         handleSubmit={mockHandleSubmit}
-        navigateToRegister={mockNavigate}
+        navigateToLogin={mockNavigate}
         loading={false}
       />,
     ) as GetByAPI;
@@ -32,41 +32,53 @@ describe('login form', () => {
 
   it('should have email validation error', async () => {
     const email = getByTestId('email');
-    const button = getByText('Log in');
+    const button = getByText('Register');
 
     await waitFor(() => fireEvent.changeText(email, 'wrongEmail'));
     await waitFor(() => fireEvent.press(button));
 
     expect(getByText('Invalid email')).toBeTruthy();
   });
-
-  it('should have password validation error', async () => {
+  it('should have repeat password validation error', async () => {
     const email = getByTestId('password');
-    const button = getByText('Log in');
+    const button = getByText('Register');
 
-    await waitFor(() => fireEvent.changeText(email, '123'));
+    await waitFor(() => fireEvent.changeText(email, 'test@test.pl'));
     await waitFor(() => fireEvent.press(button));
 
-    expect(
-      getByText('Password must have a minimum of 8 characters'),
-    ).toBeTruthy();
+    expect(getByText('Repeat password')).toBeTruthy();
   });
 
-  it('should allows the user to log in', async () => {
+  it('should have password are not the same validation error', async () => {
+    const email = getByTestId('password');
+    const passwordConfirmation = getByTestId('passwordConfirmation');
+    const button = getByText('Register');
+
+    await waitFor(() => fireEvent.changeText(email, 'test@test.pl'));
+    await waitFor(() =>
+      fireEvent.changeText(passwordConfirmation, 'test2@test.pl'),
+    );
+    await waitFor(() => fireEvent.press(button));
+
+    expect(getByText('The entered passwords are not the same')).toBeTruthy();
+  });
+
+  it('should allows the user to register', async () => {
     const email = getByTestId('email');
     const password = getByTestId('password');
-    const button = getByText('Log in');
+    const passwordConfirmation = getByTestId('passwordConfirmation');
+    const button = getByText('Register');
 
     await waitFor(() => fireEvent.changeText(email, 'mock@email.com'));
+    await waitFor(() =>
+      fireEvent.changeText(passwordConfirmation, 'mockPassword'),
+    );
     await waitFor(() => fireEvent.changeText(password, 'mockPassword'));
     await waitFor(() => fireEvent.press(button));
 
-    expect(mockHandleSubmit).toBeCalledWith(
-      {
-        email: 'mock@email.com',
-        password: 'mockPassword',
-      },
-      expect.anything(),
-    );
+    expect(mockHandleSubmit).toBeCalledWith({
+      email: 'mock@email.com',
+      password: 'mockPassword',
+    });
   });
 });

@@ -1,37 +1,36 @@
 import React, {FC} from 'react';
-import {ScrollView, View} from 'react-native';
+import {View} from 'react-native';
 import {Formik, FormikValues} from 'formik';
 import {Button} from 'react-native-paper';
 
-import Layout from './Layout';
 import CustomTextInput from '../components/CustomTextInput';
-import {LogInSchema} from '../utils/schemas';
+import {RegisterSchema} from '../utils/schemas';
+import Layout from './Layout';
 
 import styles from '../utils/styles';
 
-interface LoginForm {
+interface RegisterForm {
   loading: boolean;
-  navigateToRegister: () => void;
+  navigateToLogin: () => void;
   handleSubmit: (values: FormikValues) => void;
 }
 
-const LoginForm: FC<LoginForm> = ({
-  handleSubmit,
-  navigateToRegister,
+const RegisterForm: FC<RegisterForm> = ({
   loading,
+  handleSubmit,
+  navigateToLogin,
 }) => (
   <Layout>
-    <ScrollView
-      contentContainerStyle={styles.formContainer}
-      keyboardShouldPersistTaps="always">
+    <View style={styles.formContainer}>
       <View style={styles.inputContainer}>
         <Formik
           initialValues={{
             email: '',
             password: '',
+            passwordConfirmation: '',
           }}
-          validationSchema={LogInSchema}
-          onSubmit={handleSubmit}>
+          validationSchema={RegisterSchema}
+          onSubmit={({email, password}) => handleSubmit({email, password})}>
           {({
             handleChange,
             handleBlur,
@@ -43,9 +42,9 @@ const LoginForm: FC<LoginForm> = ({
             <>
               <CustomTextInput
                 testID="email"
-                fieldName="email"
                 placeholder="E-mail"
                 label="E-mail"
+                fieldName="email"
                 textContentType="emailAddress"
                 autoCapitalize="none"
                 value={values.email}
@@ -56,14 +55,30 @@ const LoginForm: FC<LoginForm> = ({
               <CustomTextInput
                 secureTextEntry
                 testID="password"
-                fieldName="password"
                 placeholder="Password"
                 label="Password"
+                fieldName="password"
                 textContentType="password"
                 value={values.password}
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
                 error={(touched.password && errors.password) || ''}
+              />
+              <CustomTextInput
+                secureTextEntry
+                testID="passwordConfirmation"
+                placeholder="Password confirmation"
+                label="Password confirmation"
+                fieldName="passwordConfirmation"
+                textContentType="none"
+                value={values.passwordConfirmation}
+                onChangeText={handleChange('passwordConfirmation')}
+                onBlur={handleBlur('passwordConfirmation')}
+                error={
+                  (touched.passwordConfirmation &&
+                    errors.passwordConfirmation) ||
+                  ''
+                }
               />
               <Button
                 style={styles.button}
@@ -72,17 +87,17 @@ const LoginForm: FC<LoginForm> = ({
                 loading={loading}
                 disabled={loading}
                 onPress={handleSubmit}>
-                Log in
+                Register
               </Button>
             </>
           )}
         </Formik>
-        <Button style={styles.button} mode="text" onPress={navigateToRegister}>
-          Register
+        <Button style={styles.button} mode="text" onPress={navigateToLogin}>
+          Log in
         </Button>
       </View>
-    </ScrollView>
+    </View>
   </Layout>
 );
 
-export default LoginForm;
+export default RegisterForm;
