@@ -11,7 +11,7 @@ import {Drink, Food} from '../api/interface';
 
 export const PRODUCTS_PER_SCREEN = 10;
 
-const Home: FC<HomeStackScreenProps<Scenes.Home>> = () => {
+const Home: FC<HomeStackScreenProps<Scenes.Home>> = ({navigation}) => {
   const {resetAuthData} = useContext(UserContext);
   const [products, setProducts] = useState<ProductType[]>([]);
   const [offset, setOffset] = useState(0);
@@ -43,6 +43,8 @@ const Home: FC<HomeStackScreenProps<Scenes.Home>> = () => {
   const isDrink = (product: Food | Drink): product is Drink =>
     !!(product as Drink).volume;
 
+  const navigateToProduct = () => navigation.replace(Scenes.Product);
+
   return (
     <ProductList
       isLoading={isLoading}
@@ -51,6 +53,7 @@ const Home: FC<HomeStackScreenProps<Scenes.Home>> = () => {
       resetAuthData={resetAuthData}
       fetchMoreProducts={fetchMoreProducts}
       isDrink={isDrink}
+      navigateToProduct={navigateToProduct}
     />
   );
 };

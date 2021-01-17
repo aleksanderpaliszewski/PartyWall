@@ -10,7 +10,7 @@ import {ProductType} from '../api/types';
 import {Drink} from '../api/interface';
 import {PRODUCTS_PER_SCREEN} from '../scenes/Home';
 
-import {COLORS, SPACING} from '../utils/styles';
+import globalStyles, {COLORS, SPACING} from '../utils/styles';
 
 interface ProductList {
   isLoading: boolean;
@@ -18,28 +18,30 @@ interface ProductList {
   reload: () => void;
   resetAuthData: () => void;
   fetchMoreProducts: () => void;
+  navigateToProduct: () => void;
   isDrink: (product: ProductType) => product is Drink;
 }
 
 const ProductList: FC<ProductList> = ({
+  isLoading,
   products,
   fetchMoreProducts,
   resetAuthData,
   isDrink,
-  isLoading,
   reload,
+  navigateToProduct,
 }) => (
   <Layout>
-    <View style={styles.buttonWrapper}>
+    <View style={globalStyles.appBar}>
       <Button
         mode="text"
-        style={styles.button}
-        labelStyle={styles.buttonLabel}
+        style={globalStyles.logoutButton}
+        labelStyle={globalStyles.logoutButtonLabel}
         onPress={resetAuthData}>
         Log out
       </Button>
     </View>
-    <View style={styles.container}>
+    <View style={globalStyles.roundedContainer}>
       <FlatList
         data={products}
         style={styles.flatList}
@@ -68,33 +70,18 @@ const ProductList: FC<ProductList> = ({
         }
         ListEmptyComponent={<EmptyList />}
       />
+      <Button
+        style={[globalStyles.button, styles.fab]}
+        mode="contained"
+        testID="button"
+        onPress={navigateToProduct}>
+        Add product
+      </Button>
     </View>
   </Layout>
 );
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 10,
-    opacity: 0.9,
-    backgroundColor: COLORS.white,
-    borderTopRightRadius: 40,
-    borderTopLeftRadius: 40,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    overflow: 'hidden',
-  },
-  buttonWrapper: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    paddingVertical: 2 * SPACING.Vertical,
-    paddingHorizontal: SPACING.Horizontal,
-  },
-  button: {
-    alignSelf: 'flex-end',
-  },
-  buttonLabel: {
-    color: COLORS.white,
-  },
   flatList: {
     width: '100%',
     overflow: 'hidden',
@@ -104,6 +91,11 @@ const styles = StyleSheet.create({
   },
   refreshControl: {
     paddingTop: 2 * SPACING.Vertical,
+  },
+  fab: {
+    position: 'absolute',
+    margin: SPACING.Vertical,
+    bottom: 2 * SPACING.Vertical,
   },
 });
 

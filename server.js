@@ -86,6 +86,32 @@ server.post('/auth/register', (req, res) => {
   });
 });
 
+server.post('/products', (req, res, next) => {
+  const {name, quantity, price, description, weight, volume} = req.body;
+
+  fs.readFile('./db.json', (err, data) => {
+    if (err) {
+      const {status, message} = err;
+      res.status(status).json({status, message});
+      return;
+    }
+
+    let db = JSON.parse(data.toString());
+
+    const id = db.products[db.products.length - 1].id + 1;
+
+    db.products.push({id, name, quantity, price, description, weight, volume});
+
+    fs.writeFile('./db.json', JSON.stringify(db), (err) => {
+      if (err) {
+        const {status, message} = err;
+        res.status(status).json({status, message});
+      }
+      next();
+    });
+  });
+});
+
 server.use(/^(?!\/auth).*$/, (req, res, next) => {
   if (
     !req.headers.authorization ||

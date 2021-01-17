@@ -5,6 +5,7 @@ exports[`Home render 1`] = `
   fetchMoreProducts={[Function]}
   isDrink={[Function]}
   isLoading={false}
+  navigateToProduct={[Function]}
   products={Array []}
   reload={[Function]}
   resetAuthData={[Function]}

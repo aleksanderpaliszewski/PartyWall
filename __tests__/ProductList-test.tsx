@@ -13,6 +13,7 @@ describe('product list', () => {
         resetAuthData={jest.fn()}
         fetchMoreProducts={jest.fn()}
         isDrink={jest.fn() as any}
+        navigateToProduct={jest.fn()}
       />,
     ) as GetByAPI;
 
