@@ -1,11 +1,12 @@
 import React from 'react';
-import {Scenes} from '../api/enums';
 import {
   createStackNavigator,
   StackNavigationProp,
 } from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
+
 import Home from '../scenes/Home';
+import {Scenes} from '../api/enums';
 
 export type ScreenName = Scenes.Home;
 

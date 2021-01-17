@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 import {Formik, FormikValues} from 'formik';
 import {Button} from 'react-native-paper';
 
@@ -7,7 +7,7 @@ import CustomTextInput from '../components/CustomTextInput';
 import {RegisterSchema} from '../utils/schemas';
 import Layout from './Layout';
 
-import globalStyles from '../utils/styles';
+import styles from '../utils/styles';
 
 interface RegisterForm {
   loading: boolean;
@@ -21,8 +21,8 @@ const RegisterForm: FC<RegisterForm> = ({
   navigateToLogin,
 }) => (
   <Layout>
-    <View style={styles.container}>
-      <View style={globalStyles.inputContainer}>
+    <View style={styles.formContainer}>
+      <View style={styles.inputContainer}>
         <Formik
           initialValues={{
             email: '',
@@ -81,7 +81,7 @@ const RegisterForm: FC<RegisterForm> = ({
                 }
               />
               <Button
-                style={globalStyles.button}
+                style={styles.button}
                 mode="contained"
                 testID="button"
                 loading={loading}
@@ -92,23 +92,12 @@ const RegisterForm: FC<RegisterForm> = ({
             </>
           )}
         </Formik>
-        <Button
-          style={globalStyles.button}
-          mode="text"
-          onPress={navigateToLogin}>
+        <Button style={styles.button} mode="text" onPress={navigateToLogin}>
           Log in
         </Button>
       </View>
     </View>
   </Layout>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-});
 
 export default RegisterForm;

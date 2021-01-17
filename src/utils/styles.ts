@@ -65,4 +65,9 @@ export default StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 30,
   },
+  formContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
 });

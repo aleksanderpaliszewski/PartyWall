@@ -5,11 +5,11 @@ import LoginStack from './Login';
 import HomeStack from './Home';
 import {User} from '../api/interface';
 
-interface Props {
+interface NavigationContainer {
   user: User | null;
 }
 
-const NavigationContainer: FC<Props> = ({user}) => {
+const NavigationContainer: FC<NavigationContainer> = ({user}) => {
   return <Container>{user ? <HomeStack /> : <LoginStack />}</Container>;
 };
 

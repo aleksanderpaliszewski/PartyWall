@@ -1,12 +1,13 @@
 import React from 'react';
-import {Scenes} from '../api/enums';
 import {
   createStackNavigator,
   StackNavigationProp,
 } from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
+
 import Login from '../scenes/Login';
 import Register from '../scenes/Register';
+import {Scenes} from '../api/enums';
 
 export type ScreenName = Scenes.Login | Scenes.Register;
 

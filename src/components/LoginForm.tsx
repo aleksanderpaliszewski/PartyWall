@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {Formik, FormikValues} from 'formik';
 import {Button} from 'react-native-paper';
 
@@ -7,7 +7,7 @@ import Layout from './Layout';
 import CustomTextInput from '../components/CustomTextInput';
 import {LogInSchema} from '../utils/schemas';
 
-import globalStyles from '../utils/styles';
+import styles from '../utils/styles';
 
 interface LoginForm {
   loading: boolean;
@@ -22,9 +22,9 @@ const LoginForm: FC<LoginForm> = ({
 }) => (
   <Layout>
     <ScrollView
-      contentContainerStyle={styles.container}
+      contentContainerStyle={styles.formContainer}
       keyboardShouldPersistTaps="always">
-      <View style={globalStyles.inputContainer}>
+      <View style={styles.inputContainer}>
         <Formik
           initialValues={{
             email: '',
@@ -66,7 +66,7 @@ const LoginForm: FC<LoginForm> = ({
                 error={(touched.password && errors.password) || ''}
               />
               <Button
-                style={globalStyles.button}
+                style={styles.button}
                 mode="contained"
                 testID="button"
                 loading={loading}
@@ -77,23 +77,12 @@ const LoginForm: FC<LoginForm> = ({
             </>
           )}
         </Formik>
-        <Button
-          style={globalStyles.button}
-          mode="text"
-          onPress={navigateToRegister}>
+        <Button style={styles.button} mode="text" onPress={navigateToRegister}>
           Register
         </Button>
       </View>
     </ScrollView>
   </Layout>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-});
 
 export default LoginForm;
