@@ -24,38 +24,38 @@ const verifyToken = (token) =>
     return decode;
   });
 
-const isAuthenticated = ({email, password}) => {
+const isAuthenticated = ({username, password}) => {
   const userdb = JSON.parse(fs.readFileSync('./users.json', 'UTF-8'));
 
   return userdb.users.some(
-    (user) => user.email === email && user.password === password,
+    (user) => user.username === username && user.password === password,
   );
 };
 
-const emailExists = ({email}) => {
+const mockPasswordExists = ({username}) => {
   const userdb = JSON.parse(fs.readFileSync('./users.json', 'UTF-8'));
 
-  return userdb.users.some((user) => user.email === email);
+  return userdb.users.some((user) => user.username === username);
 };
 
 server.post('/auth/login', (req, res) => {
-  const {email, password} = req.body;
-  if (!isAuthenticated({email, password})) {
+  const {username, password} = req.body;
+  if (!isAuthenticated({username, password})) {
     const status = 401;
-    const message = 'Incorrect email or password';
+    const message = 'Incorrect username or password';
     res.status(status).json({status, message});
     return;
   }
-  const jwtToken = createToken({email, password});
+  const jwtToken = createToken({username, password});
   res.status(200).json({jwtToken});
 });
 
 server.post('/auth/register', (req, res) => {
-  const {email, password} = req.body;
+  const {username, mockPassword, password} = req.body;
 
-  if (emailExists({email})) {
+  if (mockPasswordExists({mockPassword})) {
     const status = 401;
-    const message = 'Email already exist';
+    const message = 'Username already exist';
     res.status(status).json({status, message});
     return;
   }
@@ -72,7 +72,7 @@ server.post('/auth/register', (req, res) => {
 
     const id = db.users[db.users.length - 1].id + 1;
 
-    db.users.push({id, email, password});
+    db.users.push({id, username: username.trim(), password});
 
     fs.writeFile('./users.json', JSON.stringify(db), (err) => {
       if (err) {
@@ -80,7 +80,7 @@ server.post('/auth/register', (req, res) => {
         const message = err;
         res.status(status).json({status, message});
       }
-      const jwtToken = createToken({email, password});
+      const jwtToken = createToken({username, password});
       res.status(200).json({jwtToken});
     });
   });

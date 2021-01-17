@@ -27,7 +27,7 @@ const LoginForm: FC<LoginForm> = ({
       <View style={styles.inputContainer}>
         <Formik
           initialValues={{
-            email: '',
+            username: '',
             password: '',
           }}
           validationSchema={LogInSchema}
@@ -42,16 +42,16 @@ const LoginForm: FC<LoginForm> = ({
           }) => (
             <>
               <CustomTextInput
-                testID="email"
-                fieldName="email"
-                placeholder="E-mail"
-                label="E-mail"
-                textContentType="emailAddress"
+                testID="username"
+                fieldName="username"
+                placeholder="Username"
+                label="Username"
+                textContentType="none"
                 autoCapitalize="none"
-                value={values.email}
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                error={(touched.email && errors.email) || ''}
+                value={values.username}
+                onChangeText={handleChange('username')}
+                onBlur={handleBlur('username')}
+                error={(touched.username && errors.username) || ''}
               />
               <CustomTextInput
                 secureTextEntry
