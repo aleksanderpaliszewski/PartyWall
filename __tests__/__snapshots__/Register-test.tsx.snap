@@ -186,7 +186,7 @@ exports[`register should render correctly 1`] = `
                     }
                   }
                 >
-                  E-mail
+                  Username
                 </Text>
                 <Text
                   numberOfLines={1}
@@ -218,7 +218,7 @@ exports[`register should render correctly 1`] = `
                     }
                   }
                 >
-                  E-mail
+                  Username
                 </Text>
                 <Text
                   numberOfLines={1}
@@ -249,14 +249,14 @@ exports[`register should render correctly 1`] = `
                     }
                   }
                 >
-                  E-mail
+                  Username
                 </Text>
               </View>
               <TextInput
                 allowFontScaling={true}
                 autoCapitalize="none"
                 editable={true}
-                fieldName="email"
+                fieldName="username"
                 multiline={false}
                 onBlur={[Function]}
                 onChangeText={[Function]}
@@ -293,8 +293,8 @@ exports[`register should render correctly 1`] = `
                     ],
                   ]
                 }
-                testID="email"
-                textContentType="emailAddress"
+                testID="username"
+                textContentType="none"
                 underlineColorAndroid="transparent"
                 value=""
               />

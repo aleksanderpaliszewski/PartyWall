@@ -30,33 +30,34 @@ describe('register form', () => {
     getByText = wrapper.getByText;
   });
 
-  it('should have email validation error', async () => {
-    const email = getByTestId('email');
+  it('should have username validation error', async () => {
+    const username = getByTestId('username');
     const button = getByText('Register');
 
-    await waitFor(() => fireEvent.changeText(email, 'wrongEmail'));
+    await waitFor(() => fireEvent.changeText(username, ''));
     await waitFor(() => fireEvent.press(button));
 
-    expect(getByText('Invalid email')).toBeTruthy();
+    expect(getByText('Enter username')).toBeTruthy();
   });
+
   it('should have repeat password validation error', async () => {
-    const email = getByTestId('password');
+    const password = getByTestId('password');
     const button = getByText('Register');
 
-    await waitFor(() => fireEvent.changeText(email, 'test@test.pl'));
+    await waitFor(() => fireEvent.changeText(password, 'mockPassword'));
     await waitFor(() => fireEvent.press(button));
 
     expect(getByText('Repeat password')).toBeTruthy();
   });
 
   it('should have password are not the same validation error', async () => {
-    const email = getByTestId('password');
+    const password = getByTestId('password');
     const passwordConfirmation = getByTestId('passwordConfirmation');
     const button = getByText('Register');
 
-    await waitFor(() => fireEvent.changeText(email, 'test@test.pl'));
+    await waitFor(() => fireEvent.changeText(password, 'mockPassword'));
     await waitFor(() =>
-      fireEvent.changeText(passwordConfirmation, 'test2@test.pl'),
+      fireEvent.changeText(passwordConfirmation, 'mockPassword2'),
     );
     await waitFor(() => fireEvent.press(button));
 
@@ -64,12 +65,12 @@ describe('register form', () => {
   });
 
   it('should allows the user to register', async () => {
-    const email = getByTestId('email');
+    const username = getByTestId('username');
     const password = getByTestId('password');
     const passwordConfirmation = getByTestId('passwordConfirmation');
     const button = getByText('Register');
 
-    await waitFor(() => fireEvent.changeText(email, 'mock@email.com'));
+    await waitFor(() => fireEvent.changeText(username, 'mockUser'));
     await waitFor(() =>
       fireEvent.changeText(passwordConfirmation, 'mockPassword'),
     );
@@ -77,7 +78,7 @@ describe('register form', () => {
     await waitFor(() => fireEvent.press(button));
 
     expect(mockHandleSubmit).toBeCalledWith({
-      email: 'mock@email.com',
+      username: 'mockUser',
       password: 'mockPassword',
     });
   });

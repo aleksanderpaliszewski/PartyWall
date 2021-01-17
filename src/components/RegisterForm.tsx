@@ -25,12 +25,14 @@ const RegisterForm: FC<RegisterForm> = ({
       <View style={styles.inputContainer}>
         <Formik
           initialValues={{
-            email: '',
+            username: '',
             password: '',
             passwordConfirmation: '',
           }}
           validationSchema={RegisterSchema}
-          onSubmit={({email, password}) => handleSubmit({email, password})}>
+          onSubmit={({username, password}) =>
+            handleSubmit({username, password})
+          }>
           {({
             handleChange,
             handleBlur,
@@ -41,16 +43,16 @@ const RegisterForm: FC<RegisterForm> = ({
           }) => (
             <>
               <CustomTextInput
-                testID="email"
-                placeholder="E-mail"
-                label="E-mail"
-                fieldName="email"
-                textContentType="emailAddress"
+                testID="username"
+                fieldName="username"
+                placeholder="Username"
+                label="Username"
+                textContentType="none"
                 autoCapitalize="none"
-                value={values.email}
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                error={(touched.email && errors.email) || ''}
+                value={values.username}
+                onChangeText={handleChange('username')}
+                onBlur={handleBlur('username')}
+                error={(touched.username && errors.username) || ''}
               />
               <CustomTextInput
                 secureTextEntry

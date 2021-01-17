@@ -30,21 +30,21 @@ describe('login form', () => {
     getByText = wrapper.getByText;
   });
 
-  it('should have email validation error', async () => {
-    const email = getByTestId('email');
+  it('should have username validation error', async () => {
+    const username = getByTestId('username');
     const button = getByText('Log in');
 
-    await waitFor(() => fireEvent.changeText(email, 'wrongEmail'));
+    await waitFor(() => fireEvent.changeText(username, ''));
     await waitFor(() => fireEvent.press(button));
 
-    expect(getByText('Invalid email')).toBeTruthy();
+    expect(getByText('Enter username')).toBeTruthy();
   });
 
   it('should have password validation error', async () => {
-    const email = getByTestId('password');
+    const username = getByTestId('password');
     const button = getByText('Log in');
 
-    await waitFor(() => fireEvent.changeText(email, '123'));
+    await waitFor(() => fireEvent.changeText(username, '123'));
     await waitFor(() => fireEvent.press(button));
 
     expect(
@@ -53,17 +53,17 @@ describe('login form', () => {
   });
 
   it('should allows the user to log in', async () => {
-    const email = getByTestId('email');
+    const username = getByTestId('username');
     const password = getByTestId('password');
     const button = getByText('Log in');
 
-    await waitFor(() => fireEvent.changeText(email, 'mock@email.com'));
+    await waitFor(() => fireEvent.changeText(username, 'mockUser'));
     await waitFor(() => fireEvent.changeText(password, 'mockPassword'));
     await waitFor(() => fireEvent.press(button));
 
     expect(mockHandleSubmit).toBeCalledWith(
       {
-        email: 'mock@email.com',
+        username: 'mockUser',
         password: 'mockPassword',
       },
       expect.anything(),
