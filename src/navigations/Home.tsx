@@ -6,12 +6,14 @@ import {
 import {RouteProp} from '@react-navigation/native';
 
 import Home from '../scenes/Home';
+import Product from '../scenes/Product';
 import {Scenes} from '../api/enums';
 
-export type ScreenName = Scenes.Home;
+export type ScreenName = Scenes.Home | Scenes.Product;
 
 export type StackParamList = {
   [Scenes.Home]: undefined;
+  [Scenes.Product]: undefined;
 };
 
 export interface HomeStackScreenProps<T extends ScreenName> {
@@ -28,6 +30,7 @@ const HomeStackScreen = () => {
         headerShown: false,
       }}>
       <Screen name={Scenes.Home} component={Home} />
+      <Screen name={Scenes.Product} component={Product} />
     </Navigator>
   );
 };

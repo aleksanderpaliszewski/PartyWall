@@ -1,4 +1,4 @@
-import axios, {AxiosError, AxiosResponse} from 'axios';
+import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
 import qs from 'qs';
 import urljoin from 'url-join';
 
@@ -61,6 +61,13 @@ export default class Api {
 
   post<T>(uri: string, data: object): Promise<AxiosResponse<T>> {
     return axios.post<T>(uri, data).catch(this.handleUnauthorized);
+  }
+
+  delete<T>(
+    uri: string,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<T>> {
+    return axios.delete<T>(uri, config).catch(this.handleUnauthorized);
   }
 
   static setToken(token: string) {

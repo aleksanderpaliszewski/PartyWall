@@ -3,9 +3,9 @@ import {FormikValues} from 'formik';
 
 import {LoginStackScreenProps} from '../navigations/Login';
 import LoginForm from '../components/LoginForm';
-import ApiContext from '../utils/apiContext';
-import UserContext from '../utils/userContext';
-import SnackBarContext from '../utils/snackbarContext';
+import ApiContext from '../contexts/apiContext';
+import UserContext from '../contexts/userContext';
+import SnackBarContext from '../contexts/snackbarContext';
 import {Scenes} from '../api/enums';
 import {User} from '../api/interface';
 

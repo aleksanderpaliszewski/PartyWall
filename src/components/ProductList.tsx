@@ -1,16 +1,14 @@
 import React, {FC} from 'react';
 import {FlatList, RefreshControl, StyleSheet, View} from 'react-native';
-import {Button} from 'react-native-paper';
+import {Button, Text} from 'react-native-paper';
 
 import Layout from './Layout';
-import DrinkCard from './DrinkCard';
-import FoodCard from './FoodCard';
-import EmptyList from './EmptyList';
+import ProductCard from './ProductCard';
 import {ProductType} from '../api/types';
-import {Drink} from '../api/interface';
 import {PRODUCTS_PER_SCREEN} from '../scenes/Home';
+import {NO_PRODUCTS_TEXT} from '../utils/constants';
 
-import {COLORS, SPACING} from '../utils/styles';
+import globalStyles, {COLORS, SPACING} from '../utils/styles';
 
 interface ProductList {
   isLoading: boolean;
@@ -18,41 +16,39 @@ interface ProductList {
   reload: () => void;
   resetAuthData: () => void;
   fetchMoreProducts: () => void;
-  isDrink: (product: ProductType) => product is Drink;
+  navigateToProduct: () => void;
+  deleteProduct: (id: number) => void;
 }
 
 const ProductList: FC<ProductList> = ({
+  isLoading,
   products,
   fetchMoreProducts,
   resetAuthData,
-  isDrink,
-  isLoading,
   reload,
+  deleteProduct,
+  navigateToProduct,
 }) => (
   <Layout>
-    <View style={styles.buttonWrapper}>
+    <View style={globalStyles.appBar}>
       <Button
         mode="text"
-        style={styles.button}
-        labelStyle={styles.buttonLabel}
+        style={globalStyles.logoutButton}
+        labelStyle={globalStyles.logoutButtonLabel}
         onPress={resetAuthData}>
         Log out
       </Button>
     </View>
-    <View style={styles.container}>
+    <View style={globalStyles.roundedContainer}>
       <FlatList
         data={products}
         style={styles.flatList}
         contentContainerStyle={styles.flatListContent}
         keyExtractor={({id}) => id.toString()}
         onEndReachedThreshold={0.5}
-        renderItem={({item}) =>
-          isDrink(item) ? (
-            <DrinkCard product={item} />
-          ) : (
-            <FoodCard product={item} />
-          )
-        }
+        renderItem={({item}) => (
+          <ProductCard product={item} deleteProduct={deleteProduct} />
+        )}
         onEndReached={() => {
           if (products.length >= PRODUCTS_PER_SCREEN) {
             fetchMoreProducts();
@@ -60,41 +56,31 @@ const ProductList: FC<ProductList> = ({
         }}
         refreshControl={
           <RefreshControl
+            testID="refreshControl"
             style={styles.refreshControl}
             colors={[COLORS.primary, COLORS.secondary]}
             refreshing={isLoading}
             onRefresh={reload}
           />
         }
-        ListEmptyComponent={<EmptyList />}
+        ListEmptyComponent={
+          <View style={styles.emptyList}>
+            <Text>{NO_PRODUCTS_TEXT}</Text>
+          </View>
+        }
       />
+      <Button
+        style={[globalStyles.button, styles.fab]}
+        mode="contained"
+        testID="button"
+        onPress={navigateToProduct}>
+        Add product
+      </Button>
     </View>
   </Layout>
 );
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 10,
-    opacity: 0.9,
-    backgroundColor: COLORS.white,
-    borderTopRightRadius: 40,
-    borderTopLeftRadius: 40,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    overflow: 'hidden',
-  },
-  buttonWrapper: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    paddingVertical: 2 * SPACING.Vertical,
-    paddingHorizontal: SPACING.Horizontal,
-  },
-  button: {
-    alignSelf: 'flex-end',
-  },
-  buttonLabel: {
-    color: COLORS.white,
-  },
   flatList: {
     width: '100%',
     overflow: 'hidden',
@@ -104,6 +90,14 @@ const styles = StyleSheet.create({
   },
   refreshControl: {
     paddingTop: 2 * SPACING.Vertical,
+  },
+  fab: {
+    position: 'absolute',
+    margin: SPACING.Vertical,
+    bottom: 2 * SPACING.Vertical,
+  },
+  emptyList: {
+    alignSelf: 'center',
   },
 });
 

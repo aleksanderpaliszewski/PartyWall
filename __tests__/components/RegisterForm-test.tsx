@@ -5,7 +5,7 @@ import {
   waitFor,
   GetByAPI,
 } from '@testing-library/react-native';
-import RegisterForm from '../src/components/RegisterForm';
+import RegisterForm from '../../src/components/RegisterForm';
 import {ReactTestInstance} from 'react-test-renderer';
 import {FormikValues} from 'formik';
 

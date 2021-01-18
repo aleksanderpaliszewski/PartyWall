@@ -1,7 +1,8 @@
-import {User} from '../api/interface';
-import Api, {APIError} from '../utils/api';
 import {useCallback, useMemo, useEffect} from 'react';
 import {AxiosError} from 'axios';
+
+import {User} from '../api/interface';
+import Api, {APIError} from '../utils/api';
 import Storage from '../utils/storage';
 
 export const useAuth = (

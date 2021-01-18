@@ -1,7 +1,7 @@
 import React from 'react';
-import Login from '../src/scenes/Login';
+import Login from '../../src/scenes/Login';
 import renderer from 'react-test-renderer';
-import {getLoginProps} from './navigation';
+import {getLoginProps} from '../utils/navigation';
 
 describe('login', () => {
   it('should render without crashing', () => {

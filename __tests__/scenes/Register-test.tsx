@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {getRegisterProps} from './navigation';
-import Register from '../src/scenes/Register';
+import {getRegisterProps} from '../utils/navigation';
+import Register from '../../src/scenes/Register';
 
 describe('register', () => {
   it('should render without crashing', () => {

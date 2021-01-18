@@ -71,4 +71,26 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
+  roundedContainer: {
+    flex: 10,
+    opacity: 0.9,
+    backgroundColor: COLORS.white,
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 40,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    overflow: 'hidden',
+  },
+  appBar: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingVertical: 2 * SPACING.Vertical,
+    paddingHorizontal: SPACING.Horizontal,
+  },
+  logoutButton: {
+    alignSelf: 'flex-end',
+  },
+  logoutButtonLabel: {
+    color: COLORS.white,
+  },
 });

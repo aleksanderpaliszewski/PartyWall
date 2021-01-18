@@ -1,4 +1,4 @@
-import {object, string, ref} from 'yup';
+import {object, string, number, ref} from 'yup';
 
 export const LogInSchema = object().shape({
   password: string()
@@ -15,4 +15,12 @@ export const RegisterSchema = object().shape({
     .oneOf([ref('password')], 'The entered passwords are not the same')
     .required('Repeat password'),
   username: string().required('Enter username'),
+});
+
+export const AddProductSchema = object().shape({
+  name: string().required('Enter name'),
+  price: string().required('Enter price'),
+  quantity: number()
+    .typeError('Invalid Input: numbers please')
+    .required('Enter quantity'),
 });

@@ -1,12 +1,12 @@
 import {
   LoginStackScreenProps,
   ScreenName as LoginScreenName,
-} from '../src/navigations/Login';
+} from '../../src/navigations/Login';
 import {
   HomeStackScreenProps,
   ScreenName as HomeScreenName,
-} from '../src/navigations/Home';
-import {Scenes} from '../src/api/enums';
+} from '../../src/navigations/Home';
+import {Scenes} from '../../src/api/enums';
 
 function getPropsMock(screenName: LoginScreenName | HomeScreenName) {
   return {
@@ -52,4 +52,8 @@ export function getRegisterProps() {
 
 export function getHomeProps() {
   return getPropsMock(Scenes.Home) as HomeStackScreenProps<Scenes.Home>;
+}
+
+export function getProductProps() {
+  return getPropsMock(Scenes.Product) as HomeStackScreenProps<Scenes.Product>;
 }

@@ -5,7 +5,7 @@ import {
   waitFor,
   GetByAPI,
 } from '@testing-library/react-native';
-import LoginForm from '../src/components/LoginForm';
+import LoginForm from '../../src/components/LoginForm';
 import {ReactTestInstance} from 'react-test-renderer';
 import {FormikValues} from 'formik';
 

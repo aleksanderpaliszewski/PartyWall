@@ -1,14 +1,1 @@
-{
-  "users": [
-    {
-      "id": 1,
-      "username": "alek",
-      "password": "12345678"
-    },
-    {
-      "id": 2,
-      "username": "ela",
-      "password": "12345678"
-    }
-  ]
-}
+{"users":[{"id":1,"username":"alek","password":"12345678"},{"id":2,"username":"ela","password":"12345678"},{"id":3,"password":"12345678"}]}
