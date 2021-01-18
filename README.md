@@ -35,6 +35,8 @@ name and volume. Both drink and food have price and quantity
 
 ## Development
 
+- run `npm install`
+- run `npm run server-auth`
 - connect device / emulator
 - run `npm run android/ios`
 - run `npm run start`

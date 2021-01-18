@@ -2,8 +2,8 @@ import 'react-native-gesture-handler';
 import React, {useState, useMemo} from 'react';
 import {View} from 'react-native';
 import {Provider, Snackbar} from 'react-native-paper';
-import NavigationContainer from './navigations/Container';
 
+import NavigationContainer from './navigations/Container';
 import {useAuth} from './hooks/useAuth';
 import UserContext from './contexts/userContext';
 import SnackBarContext from './contexts/snackbarContext';
