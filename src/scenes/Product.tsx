@@ -5,7 +5,7 @@ import {FormikValues} from 'formik';
 import {pickBy, identity} from 'lodash';
 
 import Layout from '../components/Layout';
-import AddProductForm from '../components/AddProductForm';
+import ProductForm from '../components/ProductForm';
 import {HomeStackScreenProps} from '../navigations/Home';
 import UserContext from '../utils/userContext';
 import SnackBarContext from '../utils/snackbarContext';
@@ -57,7 +57,7 @@ const Product: FC<HomeStackScreenProps<Scenes.Product>> = ({navigation}) => {
           <Text style={styles.text}>Drink product</Text>
         </View>
         <Text style={[globalStyles.header, styles.header]}>Product info</Text>
-        <AddProductForm
+        <ProductForm
           loading={loading}
           handleSubmit={handleSubmit}
           isDrink={isDrinkProduct}

@@ -72,7 +72,7 @@ server.post('/auth/register', (req, res) => {
 
     const id = db.users[db.users.length - 1].id + 1;
 
-    db.users.push({id, username: username.trim(), password});
+    db.users.push({id, username, password});
 
     fs.writeFile('./users.json', JSON.stringify(db), (err) => {
       if (err) {

@@ -4,22 +4,18 @@ import {Formik, FormikErrors, FormikValues} from 'formik';
 import {Button} from 'react-native-paper';
 
 import CustomTextInput from '../components/CustomTextInput';
+import ProductDetailFields from './ProductDetailFields';
 import {AddProductSchema} from '../utils/schemas';
 
 import globalStyles, {SPACING} from '../utils/styles';
 
-interface AddProductForm {
+interface ProductForm {
   loading: boolean;
   isDrink: boolean;
   handleSubmit: (values: FormikValues) => void;
 }
 
-//TODO clear values after isDrink change
-const AddProductForm: FC<AddProductForm> = ({
-  handleSubmit,
-  loading,
-  isDrink,
-}) => (
+const AddProductForm: FC<ProductForm> = ({handleSubmit, loading, isDrink}) => (
   <Formik
     enableReinitialize
     initialValues={{
@@ -85,47 +81,7 @@ const AddProductForm: FC<AddProductForm> = ({
           onBlur={handleBlur('quantity')}
           error={(touched.quantity && errors.quantity) || ''}
         />
-        {isDrink ? (
-          <CustomTextInput
-            testID="volume"
-            fieldName="volume"
-            placeholder="Volume"
-            label="Volume"
-            textContentType="none"
-            autoCapitalize="none"
-            value={values.volume}
-            onChangeText={handleChange('volume')}
-            onBlur={handleBlur('volume')}
-            error={(touched.volume && errors.volume) || ''}
-          />
-        ) : (
-          <>
-            <CustomTextInput
-              testID="description"
-              fieldName="description"
-              placeholder="Description"
-              label="Description"
-              textContentType="none"
-              autoCapitalize="none"
-              value={values.description}
-              onChangeText={handleChange('description')}
-              onBlur={handleBlur('description')}
-              error={(touched.description && errors.description) || ''}
-            />
-            <CustomTextInput
-              testID="weight"
-              fieldName="weight"
-              placeholder="Weight"
-              label="Weight"
-              textContentType="none"
-              autoCapitalize="none"
-              value={values.weight}
-              onChangeText={handleChange('weight')}
-              onBlur={handleBlur('weight')}
-              error={(touched.weight && errors.weight) || ''}
-            />
-          </>
-        )}
+        <ProductDetailFields isDrink={isDrink} />
         <Button
           style={globalStyles.button}
           mode="contained"
