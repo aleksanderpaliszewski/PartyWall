@@ -2,9 +2,9 @@ import React, {FC, useState, useContext} from 'react';
 import {FormikValues} from 'formik';
 
 import RegisterForm from '../components/RegisterForm';
-import ApiContext from '../utils/apiContext';
-import SnackBarContext from '../utils/snackbarContext';
-import UserContext from '../utils/userContext';
+import ApiContext from '../contexts/apiContext';
+import SnackBarContext from '../contexts/snackbarContext';
+import UserContext from '../contexts/userContext';
 import {LoginStackScreenProps} from '../navigations/Login';
 import {Scenes} from '../api/enums';
 import {User} from '../api/interface';

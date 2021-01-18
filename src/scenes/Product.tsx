@@ -7,9 +7,9 @@ import {pickBy, identity} from 'lodash';
 import Layout from '../components/Layout';
 import ProductForm from '../components/ProductForm';
 import {HomeStackScreenProps} from '../navigations/Home';
-import UserContext from '../utils/userContext';
-import SnackBarContext from '../utils/snackbarContext';
-import ApiContext from '../utils/apiContext';
+import UserContext from '../contexts/userContext';
+import SnackBarContext from '../contexts/snackbarContext';
+import ApiContext from '../contexts/apiContext';
 import {Scenes} from '../api/enums';
 
 import globalStyles, {COLORS, SPACING} from '../utils/styles';

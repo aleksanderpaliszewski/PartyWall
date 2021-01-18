@@ -67,7 +67,7 @@
   "jest": {
     "preset": "react-native",
     "setupFilesAfterEnv": [
-      "./__tests__/setup.js",
+      "./__tests__/utils/setup.js",
       "./node_modules/react-native-gesture-handler/jestSetup.js",
       "@testing-library/jest-native/extend-expect"
     ],

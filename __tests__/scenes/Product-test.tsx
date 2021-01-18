@@ -2,15 +2,15 @@ import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
 import {shallow, configure} from 'enzyme';
 
-import Home from '../src/scenes/Home';
-import {getHomeProps} from './navigation';
+import Product from '../../src/scenes/Product';
+import {getProductProps} from '../utils/navigation';
 
 configure({adapter: new Adapter()});
-describe('Home', () => {
+describe('Product', () => {
   it('render', () => {
-    const mockProps = getHomeProps();
+    const mockProps = getProductProps();
 
-    const wrapper = shallow(<Home {...mockProps} />);
+    const wrapper = shallow(<Product {...mockProps} />);
     expect(wrapper).toMatchSnapshot();
   });
 });

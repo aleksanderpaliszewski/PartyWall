@@ -74,10 +74,10 @@ server.post('/auth/register', (req, res) => {
 
     db.users.push({id, username, password});
 
-    fs.writeFile('./users.json', JSON.stringify(db), (err) => {
-      if (err) {
+    fs.writeFile('./users.json', JSON.stringify(db), (writeErr) => {
+      if (writeErr) {
         const status = 401;
-        const message = err;
+        const message = writeErr;
         res.status(status).json({status, message});
       }
       const jwtToken = createToken({username, password});
@@ -89,16 +89,18 @@ server.post('/auth/register', (req, res) => {
 server.post('/products', (req, res, next) => {
   const {name, quantity, price, description, weight, volume} = req.body;
 
-  fs.readFile('./db.json', (err, data) => {
-    if (err) {
-      const {status, message} = err;
+  fs.readFile('./db.json', (readErr, data) => {
+    if (readErr) {
+      const {status, message} = readErr;
       res.status(status).json({status, message});
       return;
     }
 
     let db = JSON.parse(data.toString());
 
-    const id = db.products[db.products.length - 1].id + 1;
+    const id = db.products.length
+      ? db.products[db.products.length - 1].id + 1
+      : 0;
 
     db.products.push({id, name, quantity, price, description, weight, volume});
 

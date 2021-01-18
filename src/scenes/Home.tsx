@@ -1,18 +1,21 @@
 import React, {FC, useContext, useState, useEffect} from 'react';
-import _ from 'lodash';
+import {union} from 'lodash';
 
 import ProductList from '../components/ProductList';
-import UserContext from '../utils/userContext';
+import ApiContext from '../contexts/apiContext';
+import SnackBarContext from '../contexts/snackbarContext';
+import UserContext from '../contexts/userContext';
 import {HomeStackScreenProps} from '../navigations/Home';
 import {useFetch} from '../hooks/useFetch';
 import {Scenes} from '../api/enums';
 import {ProductType} from '../api/types';
-import {Drink, Food} from '../api/interface';
 
 export const PRODUCTS_PER_SCREEN = 10;
 
 const Home: FC<HomeStackScreenProps<Scenes.Home>> = ({navigation}) => {
+  const api = useContext(ApiContext);
   const {resetAuthData} = useContext(UserContext);
+  const {setMessage} = useContext(SnackBarContext);
   const [products, setProducts] = useState<ProductType[]>([]);
   const [offset, setOffset] = useState(0);
 
@@ -25,7 +28,7 @@ const Home: FC<HomeStackScreenProps<Scenes.Home>> = ({navigation}) => {
     if (!data) {
       return;
     } else if (offset > 0) {
-      setProducts((products) => _.union(products, data));
+      setProducts((ps) => union(ps, data));
     } else {
       setProducts(data);
     }
@@ -40,8 +43,11 @@ const Home: FC<HomeStackScreenProps<Scenes.Home>> = ({navigation}) => {
     }
   };
 
-  const isDrink = (product: Food | Drink): product is Drink =>
-    !!(product as Drink).volume;
+  const deleteProduct = (id: number) =>
+    api
+      .delete(`/products/${id}`)
+      .then(reload)
+      .catch(({message}) => setMessage(message));
 
   const navigateToProduct = () => navigation.replace(Scenes.Product);
 
@@ -51,8 +57,8 @@ const Home: FC<HomeStackScreenProps<Scenes.Home>> = ({navigation}) => {
       products={products}
       reload={reload}
       resetAuthData={resetAuthData}
+      deleteProduct={deleteProduct}
       fetchMoreProducts={fetchMoreProducts}
-      isDrink={isDrink}
       navigateToProduct={navigateToProduct}
     />
   );

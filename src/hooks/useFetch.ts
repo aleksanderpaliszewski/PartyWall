@@ -1,7 +1,7 @@
 import {useState, useEffect, useContext} from 'react';
 
-import ApiContext from '../utils/apiContext';
-import SnackBarContext from '../utils/snackbarContext';
+import ApiContext from '../contexts/apiContext';
+import SnackBarContext from '../contexts/snackbarContext';
 
 export const useFetch = <T = any>(initialUrl: string, other: any[] = []) => {
   const api = useContext(ApiContext);

@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Product render 1`] = `
+<Layout>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "justifyContent": "flex-end",
+        "paddingHorizontal": 15,
+        "paddingVertical": 20,
+      }
+    }
+  >
+    <withTheme(Button)
+      labelStyle={
+        Object {
+          "color": "#FFFFFF",
+        }
+      }
+      mode="text"
+      onPress={[Function]}
+      style={
+        Object {
+          "alignSelf": "flex-end",
+        }
+      }
+    >
+      Log out
+    </withTheme(Button)>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#FFFFFF",
+          "borderTopLeftRadius": 40,
+          "borderTopRightRadius": 40,
+          "flex": 10,
+          "justifyContent": "flex-start",
+          "opacity": 0.9,
+          "overflow": "hidden",
+        },
+        Object {
+          "alignItems": "flex-start",
+          "paddingHorizontal": 15,
+          "paddingVertical": 10,
+        },
+      ]
+    }
+  >
+    <withTheme(undefined)
+      style={
+        Array [
+          Object {
+            "color": "#FFFFFF",
+            "fontSize": 30,
+          },
+          Object {
+            "color": "#000000",
+            "marginVertical": 20,
+          },
+        ]
+      }
+    >
+      Product type
+    </withTheme(undefined)>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "flex-start",
+          "marginHorizontal": 15,
+          "marginVertical": 10,
+        }
+      }
+    >
+      <withTheme(Switch)
+        onValueChange={[Function]}
+        value={false}
+      />
+      <withTheme(undefined)
+        style={
+          Object {
+            "marginLeft": 15,
+          }
+        }
+      >
+        Food product
+      </withTheme(undefined)>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "flex-start",
+          "marginHorizontal": 15,
+          "marginVertical": 10,
+        }
+      }
+    >
+      <withTheme(Switch)
+        onValueChange={[Function]}
+        value={true}
+      />
+      <withTheme(undefined)
+        style={
+          Object {
+            "marginLeft": 15,
+          }
+        }
+      >
+        Drink product
+      </withTheme(undefined)>
+    </View>
+    <withTheme(undefined)
+      style={
+        Array [
+          Object {
+            "color": "#FFFFFF",
+            "fontSize": 30,
+          },
+          Object {
+            "color": "#000000",
+            "marginVertical": 20,
+          },
+        ]
+      }
+    >
+      Product info
+    </withTheme(undefined)>
+    <AddProductForm
+      handleSubmit={[Function]}
+      isDrink={true}
+      loading={false}
+    />
+  </View>
+</Layout>
+`;

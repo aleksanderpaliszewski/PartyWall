@@ -5,9 +5,9 @@ import {Provider, Snackbar} from 'react-native-paper';
 import NavigationContainer from './navigations/Container';
 
 import {useAuth} from './hooks/useAuth';
-import UserContext from './utils/userContext';
-import SnackBarContext from './utils/snackbarContext';
-import ApiContext from './utils/apiContext';
+import UserContext from './contexts/userContext';
+import SnackBarContext from './contexts/snackbarContext';
+import ApiContext from './contexts/apiContext';
 import {User} from './api/interface';
 import theme from './utils/theme';
 

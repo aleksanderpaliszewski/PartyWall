@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {View} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import {Formik, FormikValues} from 'formik';
 import {Button} from 'react-native-paper';
 
@@ -21,84 +21,84 @@ const RegisterForm: FC<RegisterForm> = ({
   navigateToLogin,
 }) => (
   <Layout>
-    <View style={styles.formContainer}>
-      <View style={styles.inputContainer}>
-        <Formik
-          initialValues={{
-            username: '',
-            password: '',
-            passwordConfirmation: '',
-          }}
-          validationSchema={RegisterSchema}
-          onSubmit={({username, password}) =>
-            handleSubmit({username, password})
-          }>
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            touched,
-          }) => (
-            <>
-              <CustomTextInput
-                testID="username"
-                fieldName="username"
-                placeholder="Username"
-                label="Username"
-                textContentType="nickname"
-                autoCapitalize="none"
-                value={values.username}
-                onChangeText={handleChange('username')}
-                onBlur={handleBlur('username')}
-                error={(touched.username && errors.username) || ''}
-              />
-              <CustomTextInput
-                secureTextEntry
-                testID="password"
-                placeholder="Password"
-                label="Password"
-                fieldName="password"
-                textContentType="password"
-                value={values.password}
-                onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
-                error={(touched.password && errors.password) || ''}
-              />
-              <CustomTextInput
-                secureTextEntry
-                testID="passwordConfirmation"
-                placeholder="Password confirmation"
-                label="Password confirmation"
-                fieldName="passwordConfirmation"
-                textContentType="none"
-                value={values.passwordConfirmation}
-                onChangeText={handleChange('passwordConfirmation')}
-                onBlur={handleBlur('passwordConfirmation')}
-                error={
-                  (touched.passwordConfirmation &&
-                    errors.passwordConfirmation) ||
-                  ''
-                }
-              />
-              <Button
-                style={styles.button}
-                mode="contained"
-                testID="button"
-                loading={loading}
-                disabled={loading}
-                onPress={handleSubmit}>
-                Register
-              </Button>
-            </>
-          )}
-        </Formik>
-        <Button style={styles.button} mode="text" onPress={navigateToLogin}>
-          Log in
-        </Button>
-      </View>
-    </View>
+    <ScrollView
+      contentContainerStyle={[styles.formContainer]}
+      keyboardShouldPersistTaps={'always'}>
+      <Formik
+        initialValues={{
+          username: '',
+          password: '',
+          passwordConfirmation: '',
+        }}
+        validationSchema={RegisterSchema}
+        onSubmit={({username, password}) => handleSubmit({username, password})}>
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+        }) => (
+          <View style={styles.inputContainer}>
+            <CustomTextInput
+              testID="username"
+              fieldName="username"
+              placeholder="Username"
+              label="Username"
+              textContentType="nickname"
+              autoCapitalize="none"
+              value={values.username}
+              onChangeText={handleChange('username')}
+              onBlur={handleBlur('username')}
+              error={(touched.username && errors.username) || ''}
+              blurOnSubmit={false}
+            />
+            <CustomTextInput
+              secureTextEntry
+              testID="password"
+              placeholder="Password"
+              label="Password"
+              fieldName="password"
+              textContentType="password"
+              value={values.password}
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
+              error={(touched.password && errors.password) || ''}
+              blurOnSubmit={false}
+            />
+            <CustomTextInput
+              secureTextEntry
+              testID="passwordConfirmation"
+              placeholder="Password confirmation"
+              label="Password confirmation"
+              fieldName="passwordConfirmation"
+              textContentType="password"
+              value={values.passwordConfirmation}
+              onChangeText={handleChange('passwordConfirmation')}
+              onBlur={handleBlur('passwordConfirmation')}
+              error={
+                (touched.passwordConfirmation && errors.passwordConfirmation) ||
+                ''
+              }
+              blurOnSubmit={false}
+            />
+            <Button
+              style={styles.button}
+              mode="contained"
+              testID="button"
+              loading={loading}
+              disabled={loading}
+              onPress={handleSubmit}>
+              Register
+            </Button>
+            <Button style={styles.button} mode="text" onPress={navigateToLogin}>
+              Log in
+            </Button>
+          </View>
+        )}
+      </Formik>
+    </ScrollView>
   </Layout>
 );
 
