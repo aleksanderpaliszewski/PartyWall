@@ -294,7 +294,7 @@ exports[`register should render correctly 1`] = `
                   ]
                 }
                 testID="username"
-                textContentType="none"
+                textContentType="nickname"
                 underlineColorAndroid="transparent"
                 value=""
               />
