@@ -16,11 +16,11 @@ const Register: FC<LoginStackScreenProps<Scenes.Register>> = ({navigation}) => {
 
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = ({email, password}: FormikValues) => {
+  const handleSubmit = ({username, password}: FormikValues) => {
     setLoading(true);
 
     return api
-      .post<User>('auth/register', {email, password})
+      .post<User>('auth/register', {username, password})
       .then(({data}) => setAuthData(data))
       .catch(({message}) => setMessage(message))
       .finally(() => setLoading(false));

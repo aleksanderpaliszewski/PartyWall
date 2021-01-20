@@ -32,7 +32,7 @@ const isAuthenticated = ({username, password}) => {
   );
 };
 
-const mockPasswordExists = ({username}) => {
+const usernameExists = (username) => {
   const userdb = JSON.parse(fs.readFileSync('./users.json', 'UTF-8'));
 
   return userdb.users.some((user) => user.username === username);
@@ -51,9 +51,9 @@ server.post('/auth/login', (req, res) => {
 });
 
 server.post('/auth/register', (req, res) => {
-  const {username, mockPassword, password} = req.body;
+  const {username, password} = req.body;
 
-  if (mockPasswordExists({mockPassword})) {
+  if (usernameExists(username)) {
     const status = 401;
     const message = 'Username already exist';
     res.status(status).json({status, message});
